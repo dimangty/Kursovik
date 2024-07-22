@@ -8,7 +8,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.webkit.SslErrorHandler
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -24,24 +26,34 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
         binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onResume() {
         super.onResume()
-        loadLoginWindow()
+        load2()
     }
 
     fun loadLoginWindow() {
-        binding.mainWebView.settings.javaScriptCanOpenWindowsAutomatically = true
-        binding.mainWebView.settings.allowFileAccess = true
-        binding.mainWebView.settings.domStorageEnabled = true
+        binding.webView.settings.javaScriptEnabled = true
+        binding.webView.settings.domStorageEnabled = true
+        binding.webView.settings.allowContentAccess = true
 
-        binding.mainWebView.webViewClient = object : WebViewClient() {
+        binding.webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 Log.d(LOG_TAG, "WebStart")
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                super.onReceivedError(view, request, error)
+
+                Log.d(LOG_TAG, "Error")
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
@@ -87,9 +99,14 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         val url =
-            "http://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
-        binding.mainWebView.loadUrl(url)
+            "https://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
+        binding.webView.loadUrl(url)
 
+    }
+
+    fun load2() {
+        binding.webView.settings.javaScriptEnabled = true
+        binding.webView.loadUrl("https://example.com")
     }
 
     fun getToken(URL: String): String {
