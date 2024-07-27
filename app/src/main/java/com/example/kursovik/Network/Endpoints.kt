@@ -1,11 +1,22 @@
 package com.example.kursovik.Network
 
+import android.content.Context
+
+
 object Endpoints {
-    const val GET_AUDIO = "audio.get?"
-    const val GET_DIALOGS = "messages.getDialogs"
-    const val GET_FRIENDS = "friends.get"
-    const val GET_MESSAGES = "messages.getHistory"
-    const val GET_USERS = "users.get"
-    const val GET_VIDEO = "video.get"
-    const val SEND_MESSAGES = "messages.send"
+    const val API = "/method"
+    fun getVkApiBaseUrl(): String {
+        return "https://api.vk.com/"
+    }
+
+    object VkUrl {
+        const val GET_AUDIO = API + "/audio.get?"
+        const val GET_DIALOGS = API + "/messages.getDialogs?"
+        const val GET_FRIENDS = API + "/friends.get?"
+        const val GET_MESSAGES = API + "/messages.getHistory?"
+        const val GET_USERS = API + "/users.get?"
+        const val GET_VIDEO = API + "/video.get?"
+        const val SEND_MESSAGES = API + "/messages.send?"
+        const val GET_USER = API + "/users.get"
+    }
 }

@@ -10,7 +10,6 @@ import android.util.Log
 import android.webkit.SslErrorHandler
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +31,10 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        load2()
+        loadLoginWindow()
+    val obfuscator = Obfuscator()
+        val key = obfuscator.bytesByObfuscatingString("9f3b3102ab704b7c9a874ee92cdb288f")
+        obfuscator.reveal(key)
     }
 
     fun loadLoginWindow() {
@@ -125,8 +127,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun showSecondActivity() {
-
         val intent = Intent(this, MainActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.putExtra("id", userId)
         intent.putExtra("token", token)
         startActivity(intent)
