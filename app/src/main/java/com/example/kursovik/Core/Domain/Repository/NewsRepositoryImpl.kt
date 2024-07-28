@@ -6,10 +6,9 @@ import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class ProfileRepositoryImpl @Inject constructor(private val networkService: NetworkService): ProfileRepository {
-    override suspend fun getUser(token: String): Result<UserResponse> = networkCall {
-        val fields = "bdate, city, country, photo_200, status"
-        networkService.getUser(token, "5.131", fields) }
+class NewsRepositoryImpl @Inject constructor(private val networkService: NetworkService): NewsRepository {
+    override suspend fun getNews(token: String): Result<UserResponse> = networkCall {
+        networkService.getNews(token, "5.131") }
     suspend inline fun <T> networkCall(crossinline block: suspend () -> Response<T>): Result<T> =
         runCatching {
             val res = block().body()

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.kursovik.R
 import com.example.kursovik.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,11 +25,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.setContext(requireContext())
+    }
+
     override fun onResume() {
         super.onResume()
         setupView()
         viewModel.loadUser()
-
     }
 
     fun setupView() {
@@ -36,6 +41,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             if(it != null) {
                 binding.firstName.text = it.firstName
                 binding.lastName.text = it.lastName
+                binding.bdate.text = it.bDate
+                binding.city.text = it.city
+                Glide.with(this).load(it.photo).into(binding.imageView)
             }
         }
     }

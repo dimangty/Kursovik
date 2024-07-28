@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kursovik</string>
+    <string name="profile">Profile</string>
+    <string name="news">News</string>
 </resources>

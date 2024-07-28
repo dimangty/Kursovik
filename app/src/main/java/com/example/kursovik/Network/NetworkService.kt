@@ -24,6 +24,9 @@ interface NetworkService {
     @GET(Endpoints.VkUrl.GET_VIDEO)
     suspend fun getVideo(): Response<String>
 
+    @GET(Endpoints.VkUrl.GET_NEWS)
+    suspend fun getNews(@Query("access_token") token: String, @Query("v") v:String): Response<UserResponse>
+
     @GET(Endpoints.VkUrl.GET_USER)
-    suspend fun getUser(@Query("access_token") token: String, @Query("v") v:String): Response<UserResponse>
+    suspend fun getUser(@Query("access_token") token: String, @Query("v") v:String, @Query("fields") fields: String): Response<UserResponse>
 }

@@ -101,7 +101,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         val url =
-            "https://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
+            "https://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages,friends,newsfeed,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
         binding.webView.loadUrl(url)
 
     }

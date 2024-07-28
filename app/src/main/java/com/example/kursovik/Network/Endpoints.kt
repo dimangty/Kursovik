@@ -18,5 +18,6 @@ object Endpoints {
         const val GET_VIDEO = API + "/video.get?"
         const val SEND_MESSAGES = API + "/messages.send?"
         const val GET_USER = API + "/users.get"
+        const val GET_NEWS = API + "/newsfeed.get"
     }
 }
