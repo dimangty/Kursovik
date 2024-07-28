@@ -1,5 +1,6 @@
 package com.example.kursovik.Network
 
+import com.example.kursovik.Core.Models.DTO.NewsfeedResponse
 import com.example.kursovik.Core.Models.UserResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,7 +26,7 @@ interface NetworkService {
     suspend fun getVideo(): Response<String>
 
     @GET(Endpoints.VkUrl.GET_NEWS)
-    suspend fun getNews(@Query("access_token") token: String, @Query("v") v:String): Response<UserResponse>
+    suspend fun getNews(@Query("access_token") token: String, @Query("v") v:String): Response<NewsfeedResponse>
 
     @GET(Endpoints.VkUrl.GET_USER)
     suspend fun getUser(@Query("access_token") token: String, @Query("v") v:String, @Query("fields") fields: String): Response<UserResponse>
