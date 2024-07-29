@@ -11,7 +11,8 @@ data class Post (var id: UUID = UUID.randomUUID(),
                  public var url: String = "",
                  public var title: String = "",
                  public var text: String = "",
-                 public var date: Date = Date()) {
+                 public var date: Date = Date(),
+                 public var dateString: String = "") {
 
     companion object {
         fun initFrom(post: PostDTO, profile: ProfileInfo): Post {
@@ -33,6 +34,15 @@ data class Post (var id: UUID = UUID.randomUUID(),
             result.date = Date(post.unixDate)
             result.title = group.name
             result.url = group.photoUrl
+            return result
+        }
+
+        fun initFrom(title: String, text: String, url: String, dateString: String): Post {
+            val result = Post()
+            result.text = text
+            result.dateString = dateString
+            result.title = title
+            result.url = url
             return result
         }
     }

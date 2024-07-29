@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_news"
+    app:startDestination="@id/fragmentNews">
+
+    <fragment
+        android:id="@+id/fragmentNews"
+        android:name="com.example.kursovik.UI.News.NewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_news_to_details"
+            app:destination="@id/NewsItemFragment">
+            <argument
+                android:name="item"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/NewsItemFragment"
+        android:name="com.example.kursovik.UI.NewsItem.NewsItemFragment"
+        android:label="NewsItemFragment"
+        tools:layout="@layout/fragment_news_item" />
+
+</navigation>
