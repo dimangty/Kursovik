@@ -32,15 +32,10 @@ class ProfileViewModel @Inject constructor(
 
     private var loadingSuggestionsTask: Job? = null
 
-    fun setContext(context: Context?) {
-        progresService.setContext(context)
-        errorService.setContext(context)
-    }
-
     fun loadUser() {
 
         loadingSuggestionsTask?.cancel()
-        progresService.showLoadingDialog()
+        progresService.show.value = true
         loadingSuggestionsTask = viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) { profileService.getUser(MainActivity.token) }
@@ -52,11 +47,11 @@ class ProfileViewModel @Inject constructor(
                             mUser.value = User().initFrom(obj)
                         }
                     } ?: let {
-                    progresService.hideLoading()
-                    errorService.show("Ошибка загрузки")
+                    progresService.show.value = false
+                    errorService.show.value = "Ошибка загрузки"
                 }
             } catch (t: Throwable) {
-                progresService.hideLoading()
+                progresService.show.value = false
             }
         }
     }

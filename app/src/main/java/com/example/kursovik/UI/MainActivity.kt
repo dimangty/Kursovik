@@ -2,16 +2,22 @@ package com.example.kursovik
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.kursovik.Core.Utils.ErrorService
+import com.example.kursovik.Core.Utils.ProgresService
 import com.example.kursovik.UI.TabPageAdapter
 import com.example.kursovik.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    @Inject lateinit var progressService: ProgresService
+    @Inject lateinit var errorService: ErrorService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                 MainActivity.token = token
             }
         }
+
+        setup()
     }
 
     private fun setUpTabBar()
@@ -57,6 +65,26 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
+
+    fun setup() {
+        progressService.show.observe(this, Observer {
+            //your code here
+            if (it) {
+                progressService.showLoadingDialog(this)
+            } else {
+                progressService.hideLoading()
+            }
+        })
+
+        errorService.show.observe(this, Observer {
+            //your code here
+            if (it.isNotEmpty()) {
+                errorService.show(it, this)
+            }
+        })
+
+
     }
 
     override fun onResume() {

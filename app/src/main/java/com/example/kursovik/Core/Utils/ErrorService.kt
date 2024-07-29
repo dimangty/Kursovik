@@ -3,13 +3,15 @@ package com.example.kursovik.Core.Utils
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
 class ErrorService @Inject constructor() {
     private var alert: AlertDialog? = null
-    private var context: Context? = null
+    private val mShow = MutableLiveData<String>()
+    val show = mShow
 
-    fun show(message: String) {
+    fun show(message: String, context: Context?) {
         if (context == null) {
             return
         }
@@ -28,9 +30,5 @@ class ErrorService @Inject constructor() {
         }
 
         alert?.show()
-    }
-
-    fun setContext(context: Context?) {
-        this.context = context
     }
 }

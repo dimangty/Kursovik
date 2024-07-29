@@ -32,13 +32,7 @@ class NewsFragment: Fragment(R.layout.fragment_news) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        viewModel.setContext(requireContext())
-    }
-
-    override fun onResume() {
-        super.onResume()
         viewModel.loadNews()
-
     }
 
     fun setupView() {

@@ -27,11 +27,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setContext(requireContext())
-    }
-
-    override fun onResume() {
-        super.onResume()
         setupView()
         viewModel.loadUser()
     }

@@ -32,30 +32,25 @@ class NewsViewModel @Inject constructor(
     val news = mNews
     fun loadNews() {
         loadingSuggestionsTask?.cancel()
-        progresService.showLoadingDialog()
+        progresService.show.value = true
         loadingSuggestionsTask = viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) { newsService.getNews(MainActivity.token) }
                     .takeIf { it.isSuccess }
                     ?.let {
-                        progresService.hideLoading()
+                        progresService.show.value = false
                         val obj = it.getOrNull()?.response
                         if (obj != null) {
                             val news = ViewModelFactory().getPosts(obj)
                             mNews.value = news
                         }
                     } ?: let {
-                    progresService.hideLoading()
-                    errorService.show("Ошибка загрузки")
+                    progresService.show.value = false
+                    errorService.show.value = "Ошибка загрузки"
                 }
             } catch (t: Throwable) {
-                progresService.hideLoading()
+                progresService.show.value = false
             }
         }
-    }
-
-    fun setContext(context: Context?) {
-        errorService.setContext(context)
-        progresService.setContext(context)
     }
 }

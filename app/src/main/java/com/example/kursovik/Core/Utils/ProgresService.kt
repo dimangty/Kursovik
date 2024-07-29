@@ -2,18 +2,20 @@ package com.example.kursovik.Core.Utils
 
 import android.app.Dialog
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import com.example.kursovik.Core.Models.Poso.User
 import com.example.kursovik.R
 import javax.inject.Inject
 
-class ProgresService @Inject constructor() {
+class ProgresService  {
     private var loadingDialog: Dialog? = null
-    private var context: Context? = null
 
-    fun showLoadingDialog() {
+    private val mShow = MutableLiveData<Boolean>()
+    val show = mShow
 
-
+    fun showLoadingDialog(context: Context?) {
         if (loadingDialog == null && context != null) {
-            loadingDialog = Dialog(context!!)
+            loadingDialog = Dialog(context)
             loadingDialog?.setContentView(R.layout.dialog_loading)
             loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
             loadingDialog?.setCanceledOnTouchOutside(false)
@@ -23,9 +25,5 @@ class ProgresService @Inject constructor() {
 
     fun hideLoading() {
         loadingDialog?.hide()
-    }
-
-    fun setContext(context: Context?) {
-        this.context = context
     }
 }
