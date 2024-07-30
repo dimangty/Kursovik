@@ -11,7 +11,7 @@ import javax.inject.Inject
 class FriendsRepositoryImpl @Inject constructor(private val networkService: NetworkService): FriendsRepository {
     override suspend fun getFriends(): Result<FriendsResponse>  = networkCall {
         val token = AuthorizationInfo.token
-        val fields = "bdate, city, country, photo_100, photo_200_orig, status"
+        val fields = "bdate,photo_100,photo_200_orig,status"
         networkService.getFriends(token, "5.131", fields) }
     suspend inline fun <T> networkCall(crossinline block: suspend () -> Response<T>): Result<T> =
         runCatching {
