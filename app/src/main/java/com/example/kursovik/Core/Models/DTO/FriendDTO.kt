@@ -23,7 +23,8 @@ data class FriendDTO(
     @SerialName("bdate" ) var bdate : String? = null,
     @SerialName("first_name" ) var firstName : String? = null,
     @SerialName("last_name"  ) var lastName  : String? = null,
-    @SerialName("photo_200_orig") var photo: String? = null,
+    @SerialName("photo_100") var photo100: String? = null,
+    @SerialName("photo_200_orig") var photo200: String? = null,
     @SerialName("city"       ) var city: CityDTO? = null,
     @SerialName("country"    ) var country: CityDTO? = null,
     @SerialName("status"    ) var status: String? = null
