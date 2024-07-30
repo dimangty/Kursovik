@@ -39,9 +39,9 @@ class NewsViewModel @Inject constructor(
                     .takeIf { it.isSuccess }
                     ?.let {
                         progresService.show.value = false
-                        val obj = it.getOrNull()?.response
-                        if (obj != null) {
-                            val news = ViewModelFactory().getPosts(obj)
+                        val response = it.getOrNull()?.response
+                        if (response != null) {
+                            val news = ViewModelFactory().getPosts(response)
                             mNews.value = news
                         }
                     } ?: let {

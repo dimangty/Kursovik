@@ -1,6 +1,8 @@
 package com.example.kursovik.Core.Utils
 
+import com.example.kursovik.Core.Models.DTO.FriendsResponse
 import com.example.kursovik.Core.Models.DTO.NewsDTO
+import com.example.kursovik.Core.Models.Poso.Friend
 import com.example.kursovik.Core.Models.Poso.Post
 
 class ViewModelFactory {
@@ -30,5 +32,17 @@ class ViewModelFactory {
         }
 
         return postViewModels
+    }
+
+
+    fun getFriends(response: FriendsResponse): List<Friend> {
+        val friends = mutableListOf<Friend>()
+        if(response.response.friends != null) {
+            for (friend in response.response.friends!!)  {
+                friends.add(Friend.initFrom(friend))
+            }
+        }
+
+        return friends
     }
 }

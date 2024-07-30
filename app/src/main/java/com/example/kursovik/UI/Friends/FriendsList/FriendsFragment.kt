@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kursovik.Core.Models.Poso.Friend
 import com.example.kursovik.Core.Models.Poso.Post
 import com.example.kursovik.R
 import com.example.kursovik.UI.News.NewsAdapter
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FriendsFragment: Fragment(R.layout.fragment_friends) {
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: FriendsAdapter
     private lateinit var binding: FragmentFriendsBinding
     private val viewModel: FriendsViewModel by viewModels()
 
@@ -35,20 +36,21 @@ class FriendsFragment: Fragment(R.layout.fragment_friends) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadFriends()
+        setupView()
     }
 
 
     fun setupView() {
-//        viewModel.news.observe(viewLifecycleOwner) {
-//            adapter.addList(it)
-//        }
+        viewModel.friends.observe(viewLifecycleOwner) {
+            adapter.addList(it)
+        }
         configureRecycler()
     }
 
     fun configureRecycler() {
-        adapter = NewsAdapter(context = requireContext(),
-            listener = object : OnPostClickListener {
-                override fun onItemClick(item: Post) {
+        adapter = FriendsAdapter(context = requireContext(),
+            listener = object : OnFriendClickListener {
+                override fun onItemClick(item: Friend) {
                     view?.let {
                         val bundle = Bundle()
                         val gson = Gson()

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FriendsResponse(
     @SerialName("response")
-    val friends: Friends
+    val response: Friends
 )
 
 @Serializable
