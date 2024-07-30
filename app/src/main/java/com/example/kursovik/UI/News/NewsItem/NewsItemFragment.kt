@@ -13,6 +13,7 @@ import com.example.kursovik.Core.Models.Poso.Post
 import com.example.kursovik.Core.Utils.DateUtils
 import com.example.kursovik.R
 import com.example.kursovik.databinding.FragmentNewsItemBinding
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,12 +25,9 @@ class NewsItemFragment(): Fragment(R.layout.fragment_news_item) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val title= arguments?.getString("title", "")
-        val text = arguments?.getString("text", "")
-        val date = arguments?.getString("date", "")
-        val url = arguments?.getString("url", "")
-        if(title != null && text != null && url !=null && date != null)
-        post = Post.initFrom(title, text, url, date)
+        val jsonStr= arguments?.getString("post", "")
+
+        post = Gson().fromJson(jsonStr, Post::class.java);
         binding = FragmentNewsItemBinding.inflate(inflater)
         return binding.root
     }
@@ -37,7 +35,7 @@ class NewsItemFragment(): Fragment(R.layout.fragment_news_item) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.textTitle.text = post.title
-        binding.textDate.text = post.dateString
+        binding.textDate.text = DateUtils.getDateString(post.date)
         binding.textPost.text = post.text
 
         Glide.with(this).load(post.url).into(binding.imageView3)

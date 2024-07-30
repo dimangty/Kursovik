@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.kursovik.Core.Models.Poso.Post
-import com.example.kursovik.Core.Utils.DateUtils
 import com.example.kursovik.R
 import com.example.kursovik.databinding.FragmentNewsBinding
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class NewsFragment: Fragment(R.layout.fragment_news) {
@@ -50,10 +49,9 @@ class NewsFragment: Fragment(R.layout.fragment_news) {
             override fun onItemClick(item: Post) {
                 view?.let {
                     val bundle = Bundle()
-                    bundle.putString("title", item.title)
-                    bundle.putString("text", item.text)
-                    bundle.putString("date", DateUtils.getDateString(item.date))
-                    bundle.putString("url", item.url)
+                    val gson = Gson()
+                    val jsonString = gson.toJson(item)
+                    bundle.putString("post", jsonString)
                     Navigation.findNavController(it).navigate(R.id.action_news_to_details, bundle);
                 }
 
