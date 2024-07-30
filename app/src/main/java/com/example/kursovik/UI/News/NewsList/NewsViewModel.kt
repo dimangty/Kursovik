@@ -35,7 +35,7 @@ class NewsViewModel @Inject constructor(
         progresService.show.value = true
         loadingSuggestionsTask = viewModelScope.launch {
             try {
-                withContext(Dispatchers.IO) { newsService.getNews(MainActivity.token) }
+                withContext(Dispatchers.IO) { newsService.getNews() }
                     .takeIf { it.isSuccess }
                     ?.let {
                         progresService.show.value = false

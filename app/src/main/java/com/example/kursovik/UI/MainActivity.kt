@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.kursovik.Core.Domain.AuthorizationInfo
 import com.example.kursovik.Core.Utils.ErrorService
 import com.example.kursovik.Core.Utils.ProgresService
 import com.example.kursovik.UI.TabPageAdapter
@@ -25,17 +26,17 @@ class MainActivity: AppCompatActivity() {
         setUpTabBar()
 
         val intent = intent
-        if (MainActivity.userId.isEmpty()) {
+        if (AuthorizationInfo.userId.isEmpty()) {
             val user = intent.getStringExtra("id")
             if (user != null) {
-                MainActivity.userId = user
+                AuthorizationInfo.userId = user
             }
         }
 
-        if (MainActivity.token.isEmpty()) {
+        if (AuthorizationInfo.token.isEmpty()) {
             val token = intent.getStringExtra("token")
             if (token != null) {
-                MainActivity.token = token
+                AuthorizationInfo.token = token
             }
         }
 

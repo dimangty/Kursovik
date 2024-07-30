@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_friends"
+    app:startDestination="@id/fragmentFriends">
+
+    <fragment
+        android:id="@+id/fragmentFriends"
+        android:name="com.example.kursovik.UI.Friends.FriendsList.FriendsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_friends">
+        <action
+            android:id="@+id/action_friends_to_details"
+            app:destination="@id/FriendItemFragment">
+            <argument
+                android:name="item"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/FriendItemFragment"
+        android:name="com.example.kursovik.UI.Friends.Friend.FriendFragment"
+        android:label="FriendItemFragment"
+        tools:layout="@layout/fragment_friends_item" />
+
+</navigation>

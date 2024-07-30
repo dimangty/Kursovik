@@ -1,5 +1,6 @@
 package com.example.kursovik.Network
 
+import com.example.kursovik.Core.Models.DTO.FriendsResponse
 import com.example.kursovik.Core.Models.DTO.NewsfeedResponse
 import com.example.kursovik.Core.Models.UserResponse
 import retrofit2.Response
@@ -14,7 +15,7 @@ interface NetworkService {
     suspend fun getDialogs(): Response<String>
 
     @GET(Endpoints.VkUrl.GET_FRIENDS)
-    suspend fun getFriends(): Response<String>
+    suspend fun getFriends(@Query("access_token") token: String, @Query("v") v:String, @Query("fields") fields: String): Response<FriendsResponse>
 
     @GET(Endpoints.VkUrl.GET_MESSAGES)
     suspend fun getMessages(): Response<String>
