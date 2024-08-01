@@ -55,7 +55,7 @@ class FriendsFragment: Fragment(R.layout.fragment_friends) {
                         val bundle = Bundle()
                         val gson = Gson()
                         val jsonString = gson.toJson(item)
-                        bundle.putString("post", jsonString)
+                        bundle.putString("friend", jsonString)
                         Navigation.findNavController(it).navigate(R.id.action_friends_to_details, bundle);
                     }
 
