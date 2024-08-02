@@ -2,6 +2,8 @@ package com.example.kursovik.Core.Utils
 
 import com.example.kursovik.Core.Models.DTO.FriendsResponse
 import com.example.kursovik.Core.Models.DTO.NewsDTO
+import com.example.kursovik.Core.Models.DTO.PhotoResponse
+import com.example.kursovik.Core.Models.DTO.PhotosDTO
 import com.example.kursovik.Core.Models.Poso.Friend
 import com.example.kursovik.Core.Models.Poso.Post
 
@@ -37,12 +39,22 @@ class ViewModelFactory {
 
     fun getFriends(response: FriendsResponse): List<Friend> {
         val friends = mutableListOf<Friend>()
-        if(response.response.friends != null) {
-            for (friend in response.response.friends!!)  {
+        if (response.response.friends != null) {
+            for (friend in response.response.friends!!) {
                 friends.add(Friend.initFrom(friend))
             }
         }
 
         return friends
+    }
+
+    fun getPhotos(response: PhotosDTO): List<String> {
+        val photos = mutableListOf<String>()
+        for (photo in response.items) {
+            val url = photo.sizes.last().url
+            photos.add(url)
+        }
+
+        return photos
     }
 }

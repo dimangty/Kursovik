@@ -2,6 +2,7 @@ package com.example.kursovik.Network
 
 import com.example.kursovik.Core.Models.DTO.FriendsResponse
 import com.example.kursovik.Core.Models.DTO.NewsfeedResponse
+import com.example.kursovik.Core.Models.DTO.PhotoResponse
 import com.example.kursovik.Core.Models.UserResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -31,4 +32,8 @@ interface NetworkService {
 
     @GET(Endpoints.VkUrl.GET_USER)
     suspend fun getUser(@Query("access_token") token: String, @Query("v") v:String, @Query("fields") fields: String): Response<UserResponse>
+
+    @GET(Endpoints.VkUrl.GET_PHOTOS)
+    suspend fun getPhotos(@Query("access_token") token: String, @Query("v") v:String, @Query("offset") offset: Int, @Query("count") count: Int,): Response<PhotoResponse>
+
 }

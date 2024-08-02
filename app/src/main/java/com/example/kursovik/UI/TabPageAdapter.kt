@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kursovik.UI.Friends.FriendsRoot.FriendsRootFragment
 import com.example.kursovik.UI.News.NewsFragment
 import com.example.kursovik.UI.News.NewsRoot.NewsRootFragment
+import com.example.kursovik.UI.Photos.PhotosFragment
 import com.example.kursovik.UI.Profile.ProfileFragment
 
 class TabPageAdapter(activity: FragmentActivity, private val tabCount: Int) : FragmentStateAdapter(activity)
@@ -19,7 +20,7 @@ class TabPageAdapter(activity: FragmentActivity, private val tabCount: Int) : Fr
             0 -> ProfileFragment()
             1 -> NewsRootFragment()
             2 -> FriendsRootFragment()
-            else -> ProfileFragment()
+            else -> PhotosFragment()
         }
     }
 

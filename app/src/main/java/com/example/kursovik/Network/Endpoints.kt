@@ -1,6 +1,7 @@
 package com.example.kursovik.Network
 
 import android.content.Context
+import retrofit2.http.GET
 
 
 object Endpoints {
@@ -19,5 +20,6 @@ object Endpoints {
         const val SEND_MESSAGES = API + "/messages.send?"
         const val GET_USER = API + "/users.get"
         const val GET_NEWS = API + "/newsfeed.get"
+        const val GET_PHOTOS = API + "/photos.getAll"
     }
 }
