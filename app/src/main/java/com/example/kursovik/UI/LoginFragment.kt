@@ -1,40 +1,45 @@
-package com.example.kursovik
+package com.example.kursovik.UI
 
 import android.annotation.TargetApi
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.SslErrorHandler
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
-import com.example.kursovik.databinding.ActivitySplashBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.example.kursovik.Core.Domain.AuthorizationInfo
+import com.example.kursovik.R
+import com.example.kursovik.databinding.FragmentLoginBinding
 
 
-class SplashActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySplashBinding
-    private val appid = 3806178
+class LoginFragment : Fragment(R.layout.fragment_login) {
+    private lateinit var binding: FragmentLoginBinding
     val LOG_TAG = "Login log"
     var token: String? = null
     var userId: String? = null
+    val appid = 3806178
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentLoginBinding.inflate(inflater)
+        return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadLoginWindow()
-    val obfuscator = Obfuscator()
-        val key = obfuscator.bytesByObfuscatingString("9f3b3102ab704b7c9a874ee92cdb288f")
-        obfuscator.reveal(key)
     }
 
     fun loadLoginWindow() {
@@ -68,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
                         userId = getUserId(url)
                         Log.d(LOG_TAG, "Token=$token")
                         Log.d(LOG_TAG, "User=$userId")
-                        showSecondActivity()
+                        showSecondFragment()
                     }
                 }
             }
@@ -106,10 +111,6 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    fun load2() {
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.loadUrl("https://example.com")
-    }
 
     fun getToken(URL: String): String {
         var bufUrl = URL
@@ -126,14 +127,26 @@ class SplashActivity : AppCompatActivity() {
         return strs[strs.size - 1]
     }
 
-    fun showSecondActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra("id", userId)
-        intent.putExtra("token", token)
-        startActivity(intent)
+    fun showSecondFragment() {
+        if (AuthorizationInfo.userId.isEmpty()) {
+            if (userId != null) {
+                AuthorizationInfo.userId = userId ?: ""
+            }
+        }
 
+        if (AuthorizationInfo.token.isEmpty()) {
+            if (token != null) {
+                AuthorizationInfo.token = token ?: ""
+            }
+        }
+
+        val transaction: FragmentTransaction =
+            requireActivity().supportFragmentManager.beginTransaction()
+        val anotherFragment = TabFragment()
+        transaction.replace(R.id.fragment_container, anotherFragment)
+        transaction.addToBackStack(null) // Optional: add to back stack if you want to allow users to navigate back
+
+        transaction.commit()
     }
-
 
 }

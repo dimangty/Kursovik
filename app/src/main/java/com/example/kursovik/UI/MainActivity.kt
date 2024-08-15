@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.kursovik.Core.Domain.AuthorizationInfo
 import com.example.kursovik.Core.Utils.ErrorService
 import com.example.kursovik.Core.Utils.ProgresService
+import com.example.kursovik.UI.LoginFragment
 import com.example.kursovik.UI.TabPageAdapter
 import com.example.kursovik.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
@@ -23,52 +24,18 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpTabBar()
-
-        val intent = intent
-        if (AuthorizationInfo.userId.isEmpty()) {
-            val user = intent.getStringExtra("id")
-            if (user != null) {
-                AuthorizationInfo.userId = user
-            }
-        }
-
-        if (AuthorizationInfo.token.isEmpty()) {
-            val token = intent.getStringExtra("token")
-            if (token != null) {
-                AuthorizationInfo.token = token
-            }
-        }
-
-        setup()
+        setupFragment()
+        setupUI()
     }
 
-    private fun setUpTabBar()
-    {
-        val adapter = TabPageAdapter(this, 5)
-        binding.viewPager.adapter = adapter
+   fun setupFragment() {
+       supportFragmentManager
+           .beginTransaction()
+           .replace(R.id.fragment_container, LoginFragment())
+           .commit()
+   }
 
-        binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback()
-        {
-            override fun onPageSelected(position: Int) {
-                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
-            }
-        })
-
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener
-        {
-            override fun onTabSelected(tab: TabLayout.Tab)
-            {
-                binding.viewPager.currentItem = tab.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-    }
-
-    fun setup() {
+    fun setupUI() {
         progressService.show.observe(this, Observer {
             //your code here
             if (it) {
@@ -92,10 +59,5 @@ class MainActivity: AppCompatActivity() {
         super.onResume()
     }
 
-
-    companion object {
-        var token: String = ""
-        var userId: String = ""
-    }
 
 }
