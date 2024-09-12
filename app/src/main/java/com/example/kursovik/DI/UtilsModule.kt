@@ -2,6 +2,7 @@ package com.example.kursovik.DI
 
 import com.example.kursovik.Core.Utils.ErrorService
 import com.example.kursovik.Core.Utils.ProgresService
+import com.example.kursovik.Obfuscator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +23,11 @@ class UtilsModule {
     @Singleton
     fun provideErrorService(): ErrorService {
         return ErrorService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideObfuscator(): Obfuscator {
+        return Obfuscator()
     }
 }

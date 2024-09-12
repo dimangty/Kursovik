@@ -10,8 +10,10 @@ class Obfuscator {
 
     // MARK: - Variables
 
-    //9f3b3102ab704b7c9a874ee92cdb288f
-    private val currateAPIkey: ByteArray = byteArrayOf(83, 89, 1, 89, 91, 89, 84, 89, 90, 86, 0, 5, 83, 89, 7, 85, 91, 83, 0, 3, 91, 89, 3, 87, 0, 86, 7, 86, 87, 3, 90, 7) // Зашифрованный ключ
+    companion object {
+        val vkAPIkey: ByteArray = byteArrayOf(81, 89, 82, 87, 83, 86, 90) // Зашифрованный ключ
+    }
+
 
     /// The salt used to obfuscate and reveal the string.
     private var salt: String
@@ -45,7 +47,7 @@ class Obfuscator {
         Log.d("Obfuscator", "Code")
         Log.d("Obfuscator", "Original $string")
         var result = ""
-        for (t in text) {
+        for (t in encrypted) {
             result += "[$t] "
         }
 

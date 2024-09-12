@@ -17,16 +17,22 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.kursovik.Core.Domain.AuthorizationInfo
+import com.example.kursovik.Obfuscator
 import com.example.kursovik.R
 import com.example.kursovik.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
+    @Inject
+    lateinit var obfuscator: Obfuscator
+
     private lateinit var binding: FragmentLoginBinding
     val LOG_TAG = "Login log"
     var token: String? = null
     var userId: String? = null
-    val appid = 3806178
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,6 +111,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 handler?.proceed()
             }
         }
+        
+        val appid = obfuscator.reveal(Obfuscator.vkAPIkey)
         val url =
             "https://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages,friends,newsfeed,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
         binding.webView.loadUrl(url)

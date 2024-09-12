@@ -3,14 +3,10 @@ package com.example.kursovik
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.viewpager2.widget.ViewPager2
-import com.example.kursovik.Core.Domain.AuthorizationInfo
 import com.example.kursovik.Core.Utils.ErrorService
 import com.example.kursovik.Core.Utils.ProgresService
 import com.example.kursovik.UI.LoginFragment
-import com.example.kursovik.UI.TabPageAdapter
 import com.example.kursovik.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
