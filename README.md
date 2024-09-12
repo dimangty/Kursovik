@@ -1,5 +1,7 @@
 # Vk Client
-Выпускной проект Android Basic OTUS\n
+Выпускной проект Android Basic OTUS
+
+
 Стек:
 MVVM, Hilt, Retrofit, Single Activity
 
