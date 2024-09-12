@@ -111,7 +111,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 handler?.proceed()
             }
         }
-        
+
         val appid = obfuscator.reveal(Obfuscator.vkAPIkey)
         val url =
             "https://api.vk.com/oauth/authorize?client_id=$appid&scope=wall,audio,video,messages,friends,newsfeed,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token"
